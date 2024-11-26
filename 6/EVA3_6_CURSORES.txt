@@ -1,0 +1,58 @@
+MySQL Shell 8.0.38
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 73
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tdb_eva3
+Default schema set to `tdb_eva3`.
+Fetching global names, object names from `tdb_eva3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tdb_eva3  SQL > use empresa;
+Default schema set to `empresa`.
+Fetching global names, object names from `empresa` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  empresa  SQL > show tables;
++-------------------+
+| Tables_in_empresa |
++-------------------+
+| countries         |
+| departments       |
+| employees         |
+| job_history       |
+| jobs              |
+| locations         |
+| regions           |
++-------------------+
+7 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  empresa  SQL > call contair_paises();
+ERROR: 1305 (42000): PROCEDURE empresa.contair_paises does not exist
+ MySQL  localhost:3306 ssl  empresa  SQL > select contar_paises();
+ERROR: 1305 (42000): FUNCTION empresa.contar_paises does not exist
+ MySQL  localhost:3306 ssl  empresa  SQL > call contar_paises();
+ERROR: 1318 (42000): Incorrect number of arguments for PROCEDURE empresa.contar_paises; expected 1, got 0
+ MySQL  localhost:3306 ssl  empresa  SQL > call contar_paises(1);
+ERROR: 1414 (42000): OUT or INOUT argument 1 for routine empresa.contar_paises is not a variable or NEW pseudo-variable in BEFORE trigger
+ MySQL  localhost:3306 ssl  empresa  SQL > call contar_paises(paises);
+ERROR: 1054 (42S22): Unknown column 'paises' in 'field list'
+ MySQL  localhost:3306 ssl  empresa  SQL > call contar_paises(select paises form countries);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select paises form countries)' at line 1
+ MySQL  localhost:3306 ssl  empresa  SQL > set @valor = 0;
+Query OK, 0 rows affected (0.0003 sec)
+ MySQL  localhost:3306 ssl  empresa  SQL > call contar_paises(@valor);
+Query OK, 0 rows affected (0.0038 sec)
+ MySQL  localhost:3306 ssl  empresa  SQL > select @valor;
++--------+
+| @valor |
++--------+
+|     28 |
++--------+
+1 row in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  empresa  SQL >
